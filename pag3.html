@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página 3 - Productos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .navbar {
+            background: linear-gradient(90deg, #6c757d 0%, #54585c 100%); /* cambiado a gris */
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(83, 83, 83, 0.12);
+        }
+        .navbar .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .brand {
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            margin-left: 32px; 
+        }
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.95);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+        }
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+        }
+        .nav-links a.active {
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+        }
+        @media (max-width: 560px) {
+            .navbar .container { padding: 0 8px; }
+            .nav-links a { padding: 6px 8px; font-size: 0.95rem; }
+            .brand { font-size: 1rem; margin-left: 12px; } /* ajuste móvil */
+        }
+    </style>
+</head>
+<body>
+   
+    <nav class="navbar">
+        <div class="container">
+            <div class="brand">muebles soñados</div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="pag2.html">Sillones</a>
+                <a href="pag3.html" class="active">Sillas</a> 
+            </div>
+        </div>
+    </nav>
+    <div class="productos">
+        <div class="producto">
+            <img src="img/silla1.jpg" class="producto-img">
+            <p class="producto-texto">Silla Rosse Castaño Asiento/Respaldo Tapizado</p>
+        </div>
+
+        <div class="producto">
+            <img src="img/silla2.jpg" class="producto-img">
+            <p class="producto-texto">Silla Eyra Roble Leriex Asiento/Respaldo Tapizado</p>
+        </div>
+
+        <div class="producto">
+            <img src="img/silla3.jpg" class="producto-img">
+            <p class="producto-texto">Silla Mauna Roble Leriex Asiento/Respaldo Tapizado
+        </div>
+    </div>
+
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+        document.querySelectorAll('.producto-texto').forEach((texto, index) => {
+            texto.addEventListener('click', () => {
+                const imagen = texto.previousElementSibling;
+                if (imagen) {
+                    imagen.style.display = "none";
+                }
+            });
+        });
+
+       
+        document.getElementById('reiniciar').addEventListener('click', () => {
+            document.querySelectorAll('.producto').forEach(producto => {
+                const img = producto.querySelector('img');
+                const texto = producto.querySelector('.producto-texto');
+                if (img) img.style.display = "none";
+                if (texto) texto.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cambiar Fondo</title>
+  <link rel="stylesheet" href="style.css"> 
+  <style>
+    body {
+      margin: 0;
+      text-align: center;
+      background-color: #6d6666;
+      color: white;
+    }
+
+    .color-buttons {
+      margin: 20px auto;
+    }
+
+    .color-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .magenta { background-color: #ffa0c0; }
+    .navy { background-color: #9da5ff; }
+    .royalblue { background-color: #a1d5ff; }
+    .darkred { background-color: #583b3b; }
+    .teal { background-color: #40615e; }
+    .gold { background-color: #6e6a46; color: black; }
+
+    .productos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .producto {
+      background-color: white;
+      color: black;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .producto img {
+      width: 100%;
+      height: auto;
+    }
+
+    .precio {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+
+    .envio {
+      color: #00c853;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="brand">muebles soñados</div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="pag2.html" class="active">Sillones</a>
+                <a href="pag3.html">Sillas</a>
+            </div>
+        </div>
+    </nav>
+
+  <h2>haga click en el color que desee para el fondo</h2>
+
+  <div class="color-buttons">
+    <button class="magenta" onclick="cambiarFondo('#ffa0c0')">Click me!</button>
+    <button class="navy" onclick="cambiarFondo('#9da5ff')">Click me!</button>
+    <button class="royalblue" onclick="cambiarFondo('#a1d5ff')">Click me!</button>
+    <button class="darkred" onclick="cambiarFondo('#583b3b')">Click me!</button>
+    <button class="teal" onclick="cambiarFondo('#40615e')">Click me!</button>
+    <button class="gold" onclick="cambiarFondo('#6e6a46')">Click me!</button>
+  </div>
+
+  <div class="productos">
+    <div class="producto">  
+      <img src="img/siiillon1.webp" alt="Sillón">
+      <h3>Sillón aislado en Render</h3>
+      <p class="precio">PRECIO: $200 USD</p>
+      <p>Modelo 3D de gran calidad</p>
+      <p class="envio">ENVIO GRATIS</p>
+      <p>¡¡2 SILLONES A PRECIO DE UNO!! </p>
+    </div>
+
+    <div class="producto">
+      <img src="img/siillooon3.jpg" alt="Sunbed">
+      <h3>Sunbed de madera</h3>
+      <p class="precio">PRECIO: $300 USD</p>
+      <p>Modelo 3D con texturas</p>
+      <p class="envio">ENVIO GRATIS</p>
+      <p>¡¡CON ACCESORIOS Y UN SORTEO DE UN VIAJE A LAS BAHAMAS POR TIEMPO LIMITADO, NO TE LO PIERDAS!!</p>
+    </div>
+  </div>
+
+  
+  <script>
+    function cambiarFondo(hex) {
+      if (!hex) return;
+      document.body.style.backgroundColor = hex;
+      const h = hex.replace('#','');
+      const r = parseInt(h.substring(0,2),16);
+      const g = parseInt(h.substring(2,4),16);
+      const b = parseInt(h.substring(4,6),16);
+      const lum = 0.299*r + 0.587*g + 0.114*b;
+      document.body.style.color = (lum > 186) ? '#111' : '#fff';
+    }
+  </script>
+</body>
+</html>
