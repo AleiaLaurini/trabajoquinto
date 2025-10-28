@@ -1,58 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muebles Soñados</title>
-    <link rel="stylesheet" href="style.css"> 
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+          <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>MUEBLES SOÑADOS</h1>
+        <nav class="nav-buttons">
     <nav class="navbar">
         <div class="container">
             <div class="brand">muebles soñados</div>
             <div class="nav-links">
-                <a href="index.html"class="active">Inicio</a>
-                <a href="pag2.html">Sillones</a>
+                <a href="index.html">Inicio</a>
+                <a href="pag2.html" class="active">Sillones</a>
                 <a href="pag3.html">Sillas</a>
             </div>
-            <a href="#sobre-nosotros" class="info-button">MÁS INFORMACIÓN</a>
         </div>
     </nav>
+            <button id="info" onclick="cambiar_texto()">MÁS INFORMACIÓN</button>
+            <button id="volver" onclick="cambiar_texto_1()">VOLVER</button>
+        </nav>
+    </header>
 
-    <section class="hero">
+    <section id="hero">
       <img src="img/Fondo.jpg" alt="Imagen de muebles" class="hero-image">
+         <h2 id="hero-text">Haciendo realidad<br>casas soñadas.</h2>
     </section>
 
-    <section id="sobre-nosotros" class="hidden">
-        <h1>SOBRE NOSOTROS</h1>
-        <h3>
-            En muebles soñados, te ayudamos a crear espacios con estilo y comodidad.
-            Ofrecemos muebles de diseño moderno, funcionales y duraderos con envío a todo el país y atención personalizada.
-            Comprá fácil, seguro y desde donde estés.
-        </h3>
-    </section>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const infoBtn = document.querySelector('.info-button');
-            const sobre = document.getElementById('sobre-nosotros');
-            if (!infoBtn || !sobre) return;
-            infoBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isHidden = sobre.classList.contains('hidden');
-                if (isHidden) {
-                    sobre.classList.remove('hidden');
-                    setTimeout(() => {
-                        const offset = 60; // ajustar este valor si necesita más/menos espacio
-                        const targetY = window.scrollY + sobre.getBoundingClientRect().top - offset;
-                        window.scrollTo({ top: targetY, behavior: 'smooth' });
-                    }, 50);
-                } else {
-                    sobre.classList.add('hidden');
-                }
-            });
-        });
+        let texto_a_cambiar = document.getElementById("hero-text");
+        let boton_volver = document.getElementById("volver");
+        function cambiar_texto() {
+           boton_volver.style.display = "inline-block";
+            texto_a_cambiar.innerHTML = "En muebles soñados, te ayudamos a crear espacios con estilo y comodidad. Ofrecemos muebles con diseños modernos, funcionales y duraderos, con envío a todo el país y atención personalizada. Comprá fácil, seguro y desde donde estés...";
+        }
+        function cambiar_texto_1() {
+            boton_volver.style.display = "none";
+            texto_a_cambiar.innerHTML = "Haciendo realidad<br>casas soñadas.";
+        }
     </script>
-
-    <script src="script.js"></script>       
+       
 </body>
 </html>
