@@ -86,7 +86,12 @@
             margin-top: 10px;
             font-weight: 700;
             color: #333;
-            cursor: pointer; 
+            cursor: pointer;
+            transition: transform 0.3s ease; 
+        }
+
+        .producto-texto:hover {
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -113,8 +118,7 @@
                 { src: 'img/silla1.jpg', text: 'silla muy comoda con almohadon de algodon, echa a mano con madera de pino y varnisada $49.000' },
                 { src: 'img/silla2.jpg', text: 'Silla muy barata echa con roble y almohadon 50% de algodon $30.300' },
                 { src: 'img/silla3.jpg', text: 'Silla echa con madera de roble sin varnisar y echa de fibra de algodon ideal para resistir liquidos $56.909' }
-            ];
-
+            ];1
             sillas.forEach(({ src, text }) => {
                 const card = document.createElement('div');
                 card.className = 'producto';
@@ -161,4 +165,5 @@
         });
     </script>
 </body>
+
 </html>
