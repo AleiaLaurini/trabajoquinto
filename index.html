@@ -1,26 +1,54 @@
-<html lang="en">
 <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Document</title>
+
+          <!-- Añadir Bootstrap CSS (antes de tu style.css para poder sobreescribir si hace falta) -->
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
           <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <nav class="nav-buttons">
-    <nav class="navbar">
-        <div class="container">
-            <div class="brand">muebles soñados</div>
-            <div class="nav-links">
-                <a href="index.html">Inicio</a>
-                <a href="pag2.html" class="active">Sillones</a>
-                <a href="pag3.html">Sillas</a>
-            </div>
-        </div>
-    </nav>
-    <h1>MUEBLES SOÑADOS</h1>
-            <button id="info" onclick="cambiar_texto()">MÁS INFORMACIÓN</button>
-            <button id="volver" onclick="cambiar_texto_1()">VOLVER</button>
+        <!-- Evita que el dropdown se cierre al hacer click dentro -->
+        <div class="dropdown position-fixed start-0 top-0 m-3" data-bs-auto-close="outside" style="z-index:1050;">
+	  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+		Menú
+	  </button>
+
+	  <div class="dropdown-menu dropdown-menu-start p-3 shadow-sm rounded" aria-labelledby="dropdownMenuButton" style="min-width:280px; max-width:420px;">
+		<div class="row g-2">
+		  <div class="col-4">
+			<div id="list-example" class="list-group">
+			  <a class="list-group-item list-group-item-action" href="#list-item-1">Creadores</a>
+			  <a class="list-group-item list-group-item-action" href="#list-item-2">¿Qué se encuentra?</a>
+			  <a class="list-group-item list-group-item-action" href="#list-item-3">Promos</a>
+			</div>
+		  </div>
+		  <div class="col-8">
+			<div class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" tabindex="0" style="max-height:200px; overflow:auto;">
+			  <h6 id="list-item-1" class="mb-1">Pagina creada por proa</h6>
+			  <p class="small mb-2">Sala, Adrian; Gigena, Candelaria; Dominguez, Abril; Laurini, Aleia; Gazzera, Gino y Fernandez, Fernando.</p>
+
+			  <h6 id="list-item-2" class="mb-1">Se encuentran muebles</h6>
+			  <p class="small mb-2">Sillas, Sillones y Mesas con sus respectivos precios.</p>
+
+			  <h6 id="list-item-3" class="mb-1">Promos</h6>
+			  <p class="small mb-0">Promos domingos/festivos/cibermonday. Válido en efectivo.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+        <h1>MUEBLES SOÑADOS</h1>
+
+    
+        <nav id="main-nav" class="nav-buttons">
+            <button type="button" onclick="location.href='pag2.html'">SILLAS</button> <!-- va a pag2 -->
+            <button type="button" onclick="location.href='pag3.html'">SILLÓN</button> <!-- va a pag3 -->
+            <button>LÁMPARA</button>
+            <button id="info" class="info-button" onclick="cambiar_texto()">MÁS INFORMACIÓN</button>
+            <button id="volver" class="info-button" onclick="cambiar_texto_1()" style="display:none;">VOLVER</button>
         </nav>
     </header>
 
@@ -29,18 +57,60 @@
          <h2 id="hero-text">Haciendo realidad<br>casas soñadas.</h2>
     </section>
 
+    <!-- Añadir bundle de Bootstrap (incluye Popper) antes de tu script.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Evitar que el dropdown se cierre al hacer click dentro: detener la propagación de clicks desde el menú -->
     <script>
-        let texto_a_cambiar = document.getElementById("hero-text");
-        let boton_volver = document.getElementById("volver");
-        function cambiar_texto() {
-           boton_volver.style.display = "inline-block";
-            texto_a_cambiar.innerHTML = "En muebles soñados, te ayudamos a crear espacios con estilo y comodidad. Ofrecemos muebles con diseños modernos, funcionales y duraderos, con envío a todo el país y atención personalizada. Comprá fácil, seguro y desde donde estés...";
-        }
-        function cambiar_texto_1() {
-            boton_volver.style.display = "none";
-            texto_a_cambiar.innerHTML = "Haciendo realidad<br>casas soñadas.";
-        }
+      (function () {
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        if (!dropdownMenu) return;
+        // cualquier click dentro del .dropdown-menu no se propagará al document,
+        // por lo que Bootstrap no cerrará el dropdown automáticamente.
+        dropdownMenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      })();
     </script>
-       
+
+    <!-- Inicializar/Actualizar ScrollSpy para el contenedor dentro del dropdown -->
+    <script>
+      (function(){
+        const scrollEl = document.querySelector('.scrollspy-example');
+        if (scrollEl && window.bootstrap) {
+          const inst = bootstrap.ScrollSpy.getInstance(scrollEl);
+          if (inst && inst.refresh) inst.refresh();
+          else new bootstrap.ScrollSpy(scrollEl, { target: '#list-example' });
+        }
+      })();
+    </script>
+
+    <!-- Manejar clicks en los enlaces del dropdown: scroll suave dentro del contenedor y marcar active -->
+    <script>
+      (function(){
+        const links = document.querySelectorAll('#list-example a[href^="#"]');
+        const container = document.querySelector('.scrollspy-example');
+        if (!links.length || !container) return;
+
+        links.forEach(link => {
+          link.addEventListener('click', function(e){
+            e.preventDefault(); // evitar comportamiento por defecto (y evitar cierres inesperados)
+            const targetId = this.getAttribute('href').slice(1);
+            const targetEl = document.getElementById(targetId);
+            if (!targetEl) return;
+
+            // Scroll relativo al contenedor
+            container.scrollTo({ top: targetEl.offsetTop, behavior: 'smooth' });
+
+            // actualizar clase active en la lista
+            links.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+      })();
+    </script>
+
+    <script src="script.js"></script>
+         
 </body>
 </html>

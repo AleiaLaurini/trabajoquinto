@@ -1,4 +1,4 @@
-[1:44 p. m., 21/10/2025] Abril: body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -8,6 +8,7 @@
 header {
     background-color: white;
     padding: 10px;
+
 }
 
 .nav-buttons button {
@@ -34,13 +35,15 @@ header {
     height: auto;
 }
 
-.hero-text {
+#hero-text {
     position: absolute;
     top: 40%;
     left: 10%;
     color: white;
     font-size: 2em;
     font-weight: bold;
+    text-align: left;
+    margin-right: 40%;
 }
 
 #sobre-nosotros {
@@ -55,61 +58,178 @@ header {
 .hidden {
     display: none;
 }
-[1:45 p. m., 21/10/2025] Abril: css
-[1:45 p. m., 21/10/2025] Abril: body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+#volver {
+    display: none;
 }
 
-header {
-    background-color: white;
-    padding: 10px;
-}
+/* Botón de menú (hamburguesa) y comportamiento responsive */
 
-.nav-buttons button {
-    margin: 5px;
-    padding: 10px 15px;
-    border: 1px solid black;
-    background-color: white;
-    cursor: pointer;
-}
-
-#btn-info {
-    background-color: #2f3e4d;
-    color: white;
+.menu-toggle {
+    /* Mostrar el botón siempre para facilitar pruebas; en pantallas grandes
+       la media query lo ocultará si se desea. */
+    display: inline-block;
+    font-size: 1.6rem;
+    background: transparent;
     border: none;
-    border-radius: 5px;
+    cursor: pointer;
+    padding: 6px 10px;
 }
 
-.hero {
+/* Por defecto ocultamos la navegación (se mostrará con la clase .open)
+   en pantallas pequeñas; en pantallas grandes se restablece a flex. */
+.nav-buttons {
+    display: none; /* se mostrará cuando tenga la clase .open */
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* En pantallas pequeñas escondemos la nav y mostramos el botón de menú */
+@media (max-width: 700px) {
+    .menu-toggle {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 10px;
+        background-color: white;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .nav-buttons.open {
+        display: flex;
+    }
+}
+
+/* En pantallas grandes mostramos la navegación y ocultamos el botón */
+@media (min-width: 701px) {
+    .menu-toggle { display: none; }
+    .nav-buttons { display: flex; }
+}
+
+/* Aumentar tamaño y aspecto del dropdown para que quede más grande y prolijo */
+.dropdown.position-fixed .btn.dropdown-toggle {
+    font-size: 1.05rem;
+    padding: 0.5rem 0.9rem;
+}
+
+.dropdown-menu {
+    min-width: 340px !important;
+    max-width: 520px;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+
+.dropdown-menu .list-group-item {
+    /* aumentado padding, interlineado y espacio entre items */
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    line-height: 1.6;      /* espacio entre líneas dentro del mismo item */
+    margin-bottom: 0.45rem;/* espacio entre items */
+    letter-spacing: 0.2px;
+}
+
+.dropdown-menu .col-4 {
+    max-width: 36%;
+}
+
+.dropdown-menu .col-8 {
+    max-width: 64%;
+}
+
+/* Separación entre título y párrafo en el panel derecho */
+.dropdown-menu h6,
+.dropdown-menu h4 {
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.dropdown-menu p {
+    margin-bottom: 0.65rem;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+/* Permitimos un poco más de altura para el contenido desplazable */
+.dropdown-menu .scrollspy-example {
+    max-height: 300px;
+    overflow: auto;
+}
+
+/* Opcional: desplazar el título principal si el menú ocupa más ancho (ajusta si no quieres este efecto) */
+header > h1 {
+    margin-left: 100px;
+}
+
+/* pequeño ajuste para que la lista no quede muy apretada en móviles */
+@media (max-width: 480px) {
+    .dropdown-menu {
+        padding: 0.9rem;
+        min-width: 260px !important;
+    }
+    .dropdown-menu .list-group-item {
+        padding: 0.75rem 0.85rem;
+        font-size: 0.98rem;
+    }
+}
+
+/* Barra de navegación (mismo estilo que pag2) */
+.navbar {
+    background: linear-gradient(90deg, #6c757d 0%, #495057 100%);
+    padding: 12px 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     position: relative;
+    z-index: 1100;
 }
-
-.hero-image {
-    width: 100%;
-    height: auto;
+.navbar .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
-
-.hero-text {
-    position: absolute;
-    top: 40%;
-    left: 10%;
-    color: white;
-    font-size: 2em;
-    font-weight: bold;
+.brand {
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    margin-left: 32px;
 }
-
-#sobre-nosotros {
-    padding: 40px;
-    background-color: #f3f3f3;
+.nav-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
-
-#sobre-nosotros h3 {
-    color: #2f3e4d;
+.nav-links a {
+    color: rgba(255,255,255,0.95);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
 }
-
-.hidden {
-    display: none;
+.nav-links a:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+.nav-links a.active {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+}
+@media (max-width: 560px) {
+    .navbar .container { padding: 0 8px; }
+    .nav-links a { padding: 6px 8px; font-size: 0.95rem; }
+    .brand { font-size: 1rem; margin-left: 12px; }
 }

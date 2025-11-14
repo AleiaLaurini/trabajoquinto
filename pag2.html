@@ -3,70 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <title>Cambiar Fondo</title>
-  <link rel="stylesheet" href="style.css"> 
   <style>
+    /* body básico */
     body {
       margin: 0;
+      font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #6d6666;
-      color: white;
+      background-color: #ffdbab;
+      color: #111;
     }
 
-    .color-buttons {
-      margin: 20px auto;
+    /* barra de navegación (igual a pag3) */
+    .navbar {
+      background: linear-gradient(90deg, #6c757d 0%, #54585c 100%);
+      padding: 12px 16px;
+      box-shadow: 0 4px 12px rgba(83,83,83,0.12);
+      position: relative;
+      z-index: 1100;
+    }
+    .navbar .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      color: #ffffff;
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+      margin-left: 16px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.95);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+    .nav-links a.active {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
     }
 
-    .color-buttons button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: white;
+    @media (max-width: 560px) {
+      .navbar .container { padding: 0 8px; }
+      .nav-links a { padding: 6px 8px; font-size: 0.95rem; }
+      .brand { font-size: 1rem; margin-left: 12px; }
     }
 
-    .magenta { background-color: #ffa0c0; }
-    .navy { background-color: #9da5ff; }
-    .royalblue { background-color: #a1d5ff; }
-    .darkred { background-color: #583b3b; }
-    .teal { background-color: #40615e; }
-    .gold { background-color: #6e6a46; color: black; }
-
+    /* productos y tarjetas (coincidente con pag3) */
     .productos {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 20px;
+      gap: 20px;
+      margin: 20px;
     }
-
     .producto {
-      background-color: white;
-      color: black;
-      margin: 10px;
+      text-align: center;
+      width: 220px;
+      background: #fff;
       padding: 10px;
-      border-radius: 10px;
-      width: 250px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      color: #000;
     }
-
     .producto img {
       width: 100%;
       height: auto;
+      display: block;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
     }
+    .producto img:hover { transform: scale(1.05); }
+    .producto-texto, .producto h3 {
+      margin-top: 10px;
+      font-weight: 700;
+      color: #333;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+    .producto-texto:hover, .producto h3:hover { transform: scale(1.05); }
 
-    .precio {
-      color: #2e7d32;
-      font-weight: bold;
+    /* utilidades */
+    .toggle-img {
+      transition: transform 0.3s ease;
     }
-
-    .envio {
-      color: #00c853;
-      font-size: 0.9em;
-    }
-  </style>
+    .toggle-img.shrunk { transform: scale(0.5); }
+  </style>  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+    <!-- Barra de navegación corregida: misma estructura que las otras páginas -->
     <nav class="navbar">
         <div class="container">
             <div class="brand">muebles soñados</div>
@@ -81,45 +126,65 @@
   <h2>haga click en el color que desee para el fondo</h2>
 
   <div class="color-buttons">
-    <button class="magenta" onclick="cambiarFondo('#ffa0c0')">Click me!</button>
-    <button class="navy" onclick="cambiarFondo('#9da5ff')">Click me!</button>
-    <button class="royalblue" onclick="cambiarFondo('#a1d5ff')">Click me!</button>
-    <button class="darkred" onclick="cambiarFondo('#583b3b')">Click me!</button>
-    <button class="teal" onclick="cambiarFondo('#40615e')">Click me!</button>
-    <button class="gold" onclick="cambiarFondo('#6e6a46')">Click me!</button>
+    <button class="brown" onclick="cambiarFondo('brown')">Marron</button>
+    <button class="navy" onclick="cambiarFondo('navy')">Azul</button>
+    <button class="skyblue" onclick="cambiarFondo('skyblue')">Celeste</button>
+    <button class="grey" onclick="cambiarFondo('grey')">Gris</button>
+    <button class="pink" onclick="cambiarFondo('pink')">Rosa</button>
   </div>
 
   <div class="productos">
     <div class="producto">  
-      <img src="img/siiillon1.webp" alt="Sillón">
-      <h3>Sillón aislado en Render</h3>
-      <p class="precio">PRECIO: $200 USD</p>
-      <p>Modelo 3D de gran calidad</p>
-      <p class="envio"> ENVIO GRATIS</p>
-      <p>¡¡2 SILLONES A PRECIO DE UNO!! </p>
+      <img src="img/Sillon1.jpg" alt="italiano">
+      <h3>Sillón italiano</h3>
+      <p class="precio">$345</p>
+      <p class="envio">ENVIO GRATIS</p>
+      <p>El Sillón italiano esta diseñado para una perfecta comodidad en cualquier ambiente </p>
     </div>
 
     <div class="producto">
-      <img src="img/siillooon3.jpg" alt="Sunbed">
-      <h3>Sunbed de madera</h3>
-      <p class="precio">PRECIO: $300 USD</p>
-      <p>Modelo 3D con texturas</p>
+      <img src="img/Sillon2.jpg" alt="Faraon">
+      <h3>Sillón faraón en pana</h3>
+      <p class="precio">$670</p>
       <p class="envio">ENVIO GRATIS</p>
-      <p>¡¡CON ACCESORIOS Y UN SORTEO DE UN VIAJE A LAS BAHAMAS POR TIEMPO LIMITADO, NO TE LO PIERDAS!!</p>
+      <p>El Sillón Faraon Pana es la opción perfecta para una casa estetica.</p>
     </div>
   </div>
 
-  
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Sillón italiano
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <img src="img/Sillon1.jpg" alt="Sillón italiano" class="toggle-img" onclick="toggleImageSize(this)" style="width: 100%; cursor: pointer;">
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Sillón faraón en pana
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <img src="img/Sillon2.jpg" alt="Sillón faraón" class="toggle-img" onclick="toggleImageSize(this)" style="width: 100%; cursor: pointer;">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    function cambiarFondo(hex) {
-      if (!hex) return;
-      document.body.style.backgroundColor = hex;
-      const h = hex.replace('#','');
-      const r = parseInt(h.substring(0,2),16);
-      const g = parseInt(h.substring(2,4),16);
-      const b = parseInt(h.substring(4,6),16);
-      const lum = 0.299*r + 0.587*g + 0.114*b;
-      document.body.style.color = (lum > 186) ? '#111' : '#fff';
+    function cambiarFondo(color) {
+      document.body.style.backgroundColor = color;
+    }
+
+    function toggleImageSize(img) {
+      img.classList.toggle('shrunk');
     }
   </script>
 </body>
