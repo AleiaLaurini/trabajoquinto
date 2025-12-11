@@ -9,7 +9,6 @@
 </head>
 <body>
 
-    <!-- Barra de navegación corregida: misma estructura que las otras páginas -->
     <nav class="navbar">
         <div class="container">
             <div class="brand">muebles soñados</div>
@@ -79,9 +78,16 @@
   <script>
     function cambiarFondo(color) {
       document.body.style.backgroundColor = color;
+      
+
+      if (color === 'navy') {
+        document.body.style.color = 'white';
+      } else {
+        document.body.style.color = '#111';
+      }
     }
 
-    // Reemplazado: ahora también alterna la clase 'shrunk' en el acordeón y en el body
+
     function toggleImageSize(img) {
       img.classList.toggle('shrunk');
 
